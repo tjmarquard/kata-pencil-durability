@@ -27,3 +27,8 @@ class TestPencilDegradePoint(unittest.TestCase):
         pencil = Pencil()
         pencil.degradePoint("booger")
         self.assertEqual(pencil.pointDurability, 14)
+
+    def test_points_left_to_write_after_writing_a_uppercase_word(self):
+        pencil = Pencil()
+        pencil.degradePoint("TABLE")
+        self.assertEqual(pencil.pointDurability, 10)

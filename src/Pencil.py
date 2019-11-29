@@ -12,4 +12,6 @@ class Pencil:
         for char in text:
             if char.islower():
                 self.pointDurability -= 1
+            else:
+                self.pointDurability -= 2
         return self.pointDurability
