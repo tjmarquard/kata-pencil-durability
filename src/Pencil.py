@@ -5,15 +5,30 @@ class Pencil:
         self.pointDurability = pointDurability
 
     def write(self, text):
-        self.writtenText += text
+        degradedText = self.degradeText(text)
+        self.writtenText += degradedText
+        self.pointDurability = self.pointDurability - self.textDurabilityCost(degradedText)
         return self.writtenText
 
-    def degradePoint(self, text):
+    def degradeText(self, text):
+        pointDurability = self.pointDurability
+        degradedText = ""
+        for char in text:
+            durabilityCost = self.textDurabilityCost(char)
+            if durabilityCost <= pointDurability:
+                degradedText += char
+                pointDurability -= durabilityCost
+            else:
+                break
+        return degradedText
+
+    def textDurabilityCost(self, text):
+        durabilityCost = 0
         for char in text:
             if len(char.strip()) == 0:
                 pass
             elif char.islower():
-                self.pointDurability -= 1
+                durabilityCost += 1
             else:
-                self.pointDurability -= 2       #punctuation counts as 2
-        return self.pointDurability
+                durabilityCost += 2
+        return durabilityCost
