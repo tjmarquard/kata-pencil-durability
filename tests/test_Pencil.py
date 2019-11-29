@@ -3,15 +3,19 @@ import unittest
 from src.Pencil import Pencil
 
 # python -m unittest tests.test_Pencil.TestPencil
-class TestPencil(unittest.TestCase):
+class TestPencilWrite(unittest.TestCase):
     
     def test_write_oneword(self):
         pencil = Pencil()
-        Pencil.write(pencil, "oneword")
+        pencil.write("oneword")
         self.assertEqual(pencil.writtenText, "oneword")
 
     def test_write_two_words(self):
         pencil = Pencil()
-        Pencil.write(pencil, "first")
-        Pencil.write(pencil, " second")
+        pencil.write("first")
+        pencil.write(" second")
         self.assertEqual(pencil.writtenText, "first second")
+
+    def test_set_default_point_durability(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.pointDurability, 20)
