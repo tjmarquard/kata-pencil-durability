@@ -2,7 +2,7 @@ class Pencil:
 
     def __init__(self, pointDurability=20, length=10):
         self.writtenText = ""
-        self.pointDurabilityDefault = pointDurability
+        self.pointDurabilitySharp = pointDurability
         self.pointDurability = pointDurability
         self.length = length
 
@@ -15,8 +15,11 @@ class Pencil:
     def sharpen(self):
         if self.length > 0:
             self.length -= 1
-            self.pointDurability = self.pointDurabilityDefault
+            self.resetPointDurability()
         return self.length
+
+    def resetPointDurability(self):
+        self.pointDurability = self.pointDurabilitySharp
 
     def degradeText(self, text):
         pointDurability = self.pointDurability

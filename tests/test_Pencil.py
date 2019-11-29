@@ -54,4 +54,6 @@ class TestPencilSharpen(unittest.TestCase):
 
     def test_sharpen(self):
         pencil = Pencil()
+        pencil.write("booger")
         self.assertEqual(pencil.sharpen(), 9)
+        self.assertEqual(pencil.pointDurabilitySharp, pencil.pointDurability)
