@@ -57,3 +57,11 @@ class TestPencilSharpen(unittest.TestCase):
         pencil.write("booger")
         self.assertEqual(pencil.sharpen(), 9)
         self.assertEqual(pencil.pointDurabilitySharp, pencil.pointDurability)
+
+class TestEraser(unittest.TestCase):
+
+    def test_build_eraser(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.eraserDurability, 10)
+
+    

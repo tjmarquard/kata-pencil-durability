@@ -1,25 +1,17 @@
 class Pencil:
 
-    def __init__(self, pointDurability=20, length=10):
+    def __init__(self, pointDurability=20, length=10, eraserDurability=10):
         self.writtenText = ""
         self.pointDurabilitySharp = pointDurability
         self.pointDurability = pointDurability
         self.length = length
+        self.eraserDurability = eraserDurability
 
     def write(self, text):
         degradedText = self.degradeText(text)
         self.writtenText += degradedText
         self.pointDurability = self.pointDurability - self.textDurabilityCost(degradedText)
         return self.writtenText
-
-    def sharpen(self):
-        if self.length > 0:
-            self.length -= 1
-            self.resetPointDurability()
-        return self.length
-
-    def resetPointDurability(self):
-        self.pointDurability = self.pointDurabilitySharp
 
     def degradeText(self, text):
         pointDurability = self.pointDurability
@@ -43,3 +35,12 @@ class Pencil:
             else:
                 durabilityCost += 2
         return durabilityCost
+
+    def sharpen(self):
+        if self.length > 0:
+            self.length -= 1
+            self.resetPointDurability()
+        return self.length
+
+    def resetPointDurability(self):
+        self.pointDurability = self.pointDurabilitySharp
