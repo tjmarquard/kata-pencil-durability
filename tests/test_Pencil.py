@@ -16,19 +16,24 @@ class TestPencilWrite(unittest.TestCase):
         pencil.write(" second")
         self.assertEqual(pencil.writtenText, "first second")
 
+# python -m unittest tests.test_Pencil.TestPencilDegradePoint
+class TestPencilDegradePoint(unittest.TestCase):
+
     def test_set_default_point_durability(self):
         pencil = Pencil()
         self.assertEqual(pencil.pointDurability, 20)
 
-# python -m unittest tests.test_Pencil.TestPencilDegradePoint
-class TestPencilDegradePoint(unittest.TestCase):
-
-    def test_points_left_to_write_after_writing_a_lowercase_word(self):
+    def test_point_durability_after_writing_a_lowercase_word(self):
         pencil = Pencil()
         pencil.degradePoint("booger")
         self.assertEqual(pencil.pointDurability, 14)
 
-    def test_points_left_to_write_after_writing_a_uppercase_word(self):
+    def test_point_durability_after_writing_a_uppercase_word(self):
         pencil = Pencil()
         pencil.degradePoint("TABLE")
         self.assertEqual(pencil.pointDurability, 10)
+
+    def test_point_durability_after_writing_whitespace(self):
+        pencil = Pencil()
+        pencil.degradePoint("\t\n\r   ")
+        self.assertEqual(pencil.pointDurability, 20)

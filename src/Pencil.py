@@ -10,8 +10,10 @@ class Pencil:
 
     def degradePoint(self, text):
         for char in text:
-            if char.islower():
+            if len(char.strip()) == 0:
+                pass
+            elif char.islower():
                 self.pointDurability -= 1
-            else:
+            elif char.isupper():
                 self.pointDurability -= 2
         return self.pointDurability
