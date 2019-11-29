@@ -31,8 +31,8 @@ class TestPencilWrite(unittest.TestCase):
         self.assertEqual(pencil.writtenText, expectedText)
         self.assertEqual(pencil.pointDurability, 0)
 
-# python -m unittest tests.test_Pencil.TestPencilDegradePoint
-class TestPenciltextDurabilityCost(unittest.TestCase):
+# python -m unittest tests.test_Pencil.TestPencilTextDurabilityCost
+class TestPencilTextDurabilityCost(unittest.TestCase):
 
     def test_durability_cost_for_a_lowercase_word(self):
         pencil = Pencil()
@@ -49,3 +49,9 @@ class TestPenciltextDurabilityCost(unittest.TestCase):
     def test_durability_cost_for_punctuation(self):
         pencil = Pencil()
         self.assertEqual(pencil.textDurabilityCost("!@#\""), 8)
+
+class TestPencilSharpen(unittest.TestCase):
+
+    def test_sharpen(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.sharpen(), 9)
