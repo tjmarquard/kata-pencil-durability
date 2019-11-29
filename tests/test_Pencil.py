@@ -37,3 +37,8 @@ class TestPencilDegradePoint(unittest.TestCase):
         pencil = Pencil()
         pencil.degradePoint("\t\n\r   ")
         self.assertEqual(pencil.pointDurability, 20)
+
+    def test_point_durability_after_writing_punctuation(self):
+        pencil = Pencil()
+        pencil.degradePoint("!@#\"")
+        self.assertEqual(pencil.pointDurability, 12)

@@ -14,6 +14,6 @@ class Pencil:
                 pass
             elif char.islower():
                 self.pointDurability -= 1
-            elif char.isupper():
-                self.pointDurability -= 2
+            else:
+                self.pointDurability -= 2       #punctuation counts as 2
         return self.pointDurability
