@@ -10,7 +10,7 @@ class Pencil:
     def write(self, text):
         degradedText = self.degradeText(text)
         self.writtenText += degradedText
-        self.pointDurability = self.pointDurability - self.textDurabilityCost(degradedText)
+        self.degradePoint(degradedText)
         return self.writtenText
 
     def degradeText(self, text):
@@ -36,11 +36,16 @@ class Pencil:
                 durabilityCost += 2
         return durabilityCost
 
+    def degradePoint(self, text):
+        self.pointDurability -= self.textDurabilityCost(text)
+
     def sharpen(self):
         if self.length > 0:
-            self.length -= 1
+            self.shortenPencil()
             self.resetPointDurability()
-        return self.length
+
+    def shortenPencil(self):
+        self.length -= 1
 
     def resetPointDurability(self):
         self.pointDurability = self.pointDurabilitySharp

@@ -1,8 +1,40 @@
+# python -m unittest tests.test_Pencil
 import unittest
 
 from src.Pencil import Pencil
 
-# python -m unittest tests.test_Pencil.TestPencilWrite
+class TestCreatePencil(unittest.TestCase):
+
+    def test_no_written_text_to_start(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.writtenText, "")
+
+    def test_set_point_durability_when_sharp(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.pointDurability, 20)
+        self.assertEqual(pencil.pointDurabilitySharp, 20)
+    
+    def test_set_point_durability_when_sharp_40(self):
+        pencil = Pencil(pointDurability=40)
+        self.assertEqual(pencil.pointDurability, 40)
+        self.assertEqual(pencil.pointDurabilitySharp, 40)
+
+    def test_set_pencil_length(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.length, 10)
+
+    def test_set_pencil_length_5(self):
+        pencil = Pencil(length=5)
+        self.assertEqual(pencil.length, 5)
+
+    def test_set_eraser_durability(self):
+        pencil = Pencil()
+        self.assertEqual(pencil.eraserDurability, 10)
+
+    def test_set_eraser_durability_20(self):
+        pencil = Pencil(eraserDurability=20)
+        self.assertEqual(pencil.eraserDurability, 20)
+
 class TestPencilWrite(unittest.TestCase):
     
     def test_write_oneword(self):
@@ -18,10 +50,6 @@ class TestPencilWrite(unittest.TestCase):
         self.assertEqual(pencil.writtenText, "first second")
         self.assertEqual(pencil.pointDurability, 9)
 
-    def test_set_default_point_durability(self):
-        pencil = Pencil()
-        self.assertEqual(pencil.pointDurability, 20)
-
     def test_write_beyond_point_durability(self):
         pencil = Pencil()
         pencil.write("There was so much to read for one thing "\
@@ -31,7 +59,6 @@ class TestPencilWrite(unittest.TestCase):
         self.assertEqual(pencil.writtenText, expectedText)
         self.assertEqual(pencil.pointDurability, 0)
 
-# python -m unittest tests.test_Pencil.TestPencilTextDurabilityCost
 class TestPencilTextDurabilityCost(unittest.TestCase):
 
     def test_durability_cost_for_a_lowercase_word(self):
@@ -55,18 +82,11 @@ class TestPencilSharpen(unittest.TestCase):
     def test_sharpen(self):
         pencil = Pencil()
         pencil.write("booger")
-        self.assertEqual(pencil.sharpen(), 9)
+        pencil.sharpen()
+        self.assertEqual(pencil.length, 9)
         self.assertEqual(pencil.pointDurabilitySharp, pencil.pointDurability)
 
 class TestEraser(unittest.TestCase):
-
-    def test_build_eraser(self):
-        pencil = Pencil()
-        self.assertEqual(pencil.eraserDurability, 10)
-
-    def test_build_eraser_20(self):
-        pencil = Pencil(eraserDurability=20)
-        self.assertEqual(pencil.eraserDurability, 20)
 
     def test_erase_last_word(self):
         pencil = Pencil(pointDurability=50)
@@ -85,6 +105,12 @@ class TestEraser(unittest.TestCase):
         pencil.write("There was so much to read for one thing")
         pencil.erase("There")
         self.assertEqual(pencil.writtenText, "      was so much to read for one thing")
+    
+    def test_erase_word_not_found(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("There was so much to read for one thing")
+        pencil.erase("Awesome much")
+        self.assertEqual(pencil.writtenText, "There was so much to read for one thing")
 
     def test_erase_delete_all_o(self):
         pencil = Pencil(pointDurability=50)
