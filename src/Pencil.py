@@ -44,3 +44,11 @@ class Pencil:
 
     def resetPointDurability(self):
         self.pointDurability = self.pointDurabilitySharp
+
+    def erase(self, textToErase):
+        lastIndex = self.writtenText.rfind(textToErase)
+        if lastIndex != -1:
+            index = lastIndex + len(textToErase)
+            while index > lastIndex:
+                self.writtenText = self.writtenText[:index-1] + " " + self.writtenText[index:]
+                index -= 1

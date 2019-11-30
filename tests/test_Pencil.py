@@ -64,4 +64,12 @@ class TestEraser(unittest.TestCase):
         pencil = Pencil()
         self.assertEqual(pencil.eraserDurability, 10)
 
-    
+    def test_build_eraser_20(self):
+        pencil = Pencil(eraserDurability=20)
+        self.assertEqual(pencil.eraserDurability, 20)
+
+    def test_erase_last_word(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("There was so much to read for one thing")
+        pencil.erase("thing")
+        self.assertEqual(pencil.writtenText, "There was so much to read for one      ")
