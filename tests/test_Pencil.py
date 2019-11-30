@@ -73,3 +73,25 @@ class TestEraser(unittest.TestCase):
         pencil.write("There was so much to read for one thing")
         pencil.erase("thing")
         self.assertEqual(pencil.writtenText, "There was so much to read for one      ")
+
+    def test_erase_middle_phrase(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("There was so much to read for one thing")
+        pencil.erase(" so much to read ")
+        self.assertEqual(pencil.writtenText, "There was                 for one thing")
+    
+    def test_erase_first_word(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("There was so much to read for one thing")
+        pencil.erase("There")
+        self.assertEqual(pencil.writtenText, "      was so much to read for one thing")
+
+    def test_erase_delete_all_o(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("There was so much to read for one thing")
+        pencil.erase("o")
+        pencil.erase("o")
+        pencil.erase("o")
+        pencil.erase("o")
+        self.assertEqual(pencil.writtenText, "There was s  much t  read f r  ne thing")
+        
