@@ -59,23 +59,23 @@ class TestPencilWrite(unittest.TestCase):
         self.assertEqual(pencil.writtenText, expectedText)
         self.assertEqual(pencil.pointDurability, 0)
 
-class TestPencilTextDurabilityCost(unittest.TestCase):
+class TestPencilPointDurabilityCost(unittest.TestCase):
 
     def test_durability_cost_for_a_lowercase_word(self):
         pencil = Pencil()
-        self.assertEqual(pencil.textDurabilityCost("booger"), 6)
+        self.assertEqual(pencil.pointDurabilityCost("booger"), 6)
 
     def test_durability_cost_for_a_uppercase_word(self):
         pencil = Pencil()
-        self.assertEqual(pencil.textDurabilityCost("TABLE"), 10)
+        self.assertEqual(pencil.pointDurabilityCost("TABLE"), 10)
 
     def test_durability_cost_for_whitespace(self):
         pencil = Pencil()
-        self.assertEqual(pencil.textDurabilityCost("\t\n\r   "), 0)
+        self.assertEqual(pencil.pointDurabilityCost("\t\n\r   "), 0)
 
     def test_durability_cost_for_punctuation(self):
         pencil = Pencil()
-        self.assertEqual(pencil.textDurabilityCost("!@#\""), 8)
+        self.assertEqual(pencil.pointDurabilityCost("!@#\""), 8)
 
 class TestPencilSharpen(unittest.TestCase):
 
@@ -95,7 +95,7 @@ class TestEraser(unittest.TestCase):
         self.assertEqual(pencil.writtenText, "There was so much to read for one      ")
 
     def test_erase_middle_phrase(self):
-        pencil = Pencil(pointDurability=50)
+        pencil = Pencil(pointDurability=50, eraserDurability=20)
         pencil.write("There was so much to read for one thing")
         pencil.erase(" so much to read ")
         self.assertEqual(pencil.writtenText, "There was                 for one thing")

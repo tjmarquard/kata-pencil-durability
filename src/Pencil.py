@@ -8,24 +8,20 @@ class Pencil:
         self.eraserDurability = eraserDurability
 
     def write(self, text):
-        degradedText = self.degradeText(text)
-        self.writtenText += degradedText
-        self.degradePoint(degradedText)
+        index = 0
+        while index < len(text):
+            char = text[index:index+1]
+            if self.canWrite(char):
+                self.writeOneCharacter(char)
+            else: 
+                break
+            index += 1
         return self.writtenText
 
-    def degradeText(self, text):
-        pointDurability = self.pointDurability
-        degradedText = ""
-        for char in text:
-            durabilityCost = self.textDurabilityCost(char)
-            if durabilityCost <= pointDurability:
-                degradedText += char
-                pointDurability -= durabilityCost
-            else:
-                break
-        return degradedText
+    def canWrite(self, char):
+        return self.pointDurability >= self.pointDurabilityCost(char)
 
-    def textDurabilityCost(self, text):
+    def pointDurabilityCost(self, text):
         durabilityCost = 0
         for char in text:
             if len(char.strip()) == 0:
@@ -36,16 +32,20 @@ class Pencil:
                 durabilityCost += 2
         return durabilityCost
 
+    def writeOneCharacter(self, char):
+        self.writtenText += char
+        self.degradePoint(char)
+
     def degradePoint(self, text):
-        self.pointDurability -= self.textDurabilityCost(text)
+        self.pointDurability -= self.pointDurabilityCost(text)
 
     def sharpen(self):
         if self.length > 0:
             self.shortenPencil()
-            self.resetPointDurability()
 
     def shortenPencil(self):
         self.length -= 1
+        self.resetPointDurability()
 
     def resetPointDurability(self):
         self.pointDurability = self.pointDurabilitySharp
@@ -54,17 +54,16 @@ class Pencil:
         lastIndex = self.writtenText.rfind(textToErase)
         if lastIndex != -1:
             index = lastIndex + len(textToErase)
-            while index > lastIndex:
-                if self.canErase():
-                    self.writtenText = self.writtenText[:index-1] + " " + self.writtenText[index:]
-                    self.decreaseEraserDurability()
-                    index -= 1
-                else:
-                    break
+            while index > lastIndex and self.canErase():
+                self.eraseOneCharacter(index)
+                index -= 1
 
     def canErase(self):
         return self.eraserDurability > 0
 
-    def decreaseEraserDurability(self):
+    def eraseOneCharacter(self, index):
+        self.writtenText = self.writtenText[:index-1] + " " + self.writtenText[index:]
+        self.degradeEraser()
+
+    def degradeEraser(self):
         self.eraserDurability -= 1
-        return
