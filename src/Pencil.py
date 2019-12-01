@@ -55,5 +55,16 @@ class Pencil:
         if lastIndex != -1:
             index = lastIndex + len(textToErase)
             while index > lastIndex:
-                self.writtenText = self.writtenText[:index-1] + " " + self.writtenText[index:]
-                index -= 1
+                if self.canErase():
+                    self.writtenText = self.writtenText[:index-1] + " " + self.writtenText[index:]
+                    self.decreaseEraserDurability()
+                    index -= 1
+                else:
+                    break
+
+    def canErase(self):
+        return self.eraserDurability > 0
+
+    def decreaseEraserDurability(self):
+        self.eraserDurability -= 1
+        return

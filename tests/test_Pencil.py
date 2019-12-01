@@ -120,4 +120,11 @@ class TestEraser(unittest.TestCase):
         pencil.erase("o")
         pencil.erase("o")
         self.assertEqual(pencil.writtenText, "There was s  much t  read f r  ne thing")
-        
+
+class TestEraserDurability(unittest.TestCase):
+
+    def test_eraser_runs_out(self):
+        pencil = Pencil(eraserDurability=3)
+        pencil.write("Buffalo Bill")
+        pencil.erase("Bill")
+        self.assertEqual(pencil.writtenText, "Buffalo B   ")
