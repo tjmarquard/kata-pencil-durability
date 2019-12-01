@@ -75,11 +75,19 @@ class Pencil:
 
     def edit(self, text):
         index = self.erasedIndex.pop(0)
-        # write one character
         for num, character in enumerate(text):
             self.changeOneCharacter(index + num, character)
 
     def changeOneCharacter(self, index, character):
         if self.canWrite(character):
+            writtenCharacter = self.writtenCharacter(index)
+            if not self.whiteSpaceCharacter(writtenCharacter):
+                character = "@"
             self.writtenText = self.writtenText[:index] + character + self.writtenText[index+1:]
             self.degradePoint(character)
+
+    def whiteSpaceCharacter(self, character):
+        return len(character.strip()) == 0
+
+    def writtenCharacter(self, index):
+        return self.writtenText[index:index+1]

@@ -138,3 +138,10 @@ class TestEditing(unittest.TestCase):
         pencil.edit("onion")
         self.assertEqual(pencil.writtenText, "An onion a day keeps the doctor away")
         self.assertEqual(pencil.pointDurability, 15)
+
+    def test_edit_one_erased_word_of_larger_size(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("An apple a day keeps the doctor away")
+        pencil.erase("apple")
+        pencil.edit("artichoke")
+        self.assertEqual(pencil.writtenText, "An artich@k@ay keeps the doctor away")
