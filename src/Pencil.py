@@ -6,6 +6,7 @@ class Pencil:
         self.pointDurability = pointDurability
         self.length = length
         self.eraserDurability = eraserDurability
+        self.erasedIndex = []
 
     def write(self, text):
         index = 0
@@ -57,6 +58,7 @@ class Pencil:
             while index > lastIndex and self.canErase():
                 self.eraseOneCharacter(index)
                 index -= 1
+            self.addToErasedIndex(index)
 
     def canErase(self):
         return self.eraserDurability > 0
@@ -67,3 +69,17 @@ class Pencil:
 
     def degradeEraser(self):
         self.eraserDurability -= 1
+
+    def addToErasedIndex(self, index):
+        self.erasedIndex.append(index)
+
+    def edit(self, text):
+        index = self.erasedIndex.pop(0)
+        # write one character
+        for num, character in enumerate(text):
+            self.changeOneCharacter(index + num, character)
+
+    def changeOneCharacter(self, index, character):
+        if self.canWrite(character):
+            self.writtenText = self.writtenText[:index] + character + self.writtenText[index+1:]
+            self.degradePoint(character)

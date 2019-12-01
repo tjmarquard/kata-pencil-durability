@@ -128,3 +128,13 @@ class TestEraserDurability(unittest.TestCase):
         pencil.write("Buffalo Bill")
         pencil.erase("Bill")
         self.assertEqual(pencil.writtenText, "Buffalo B   ")
+
+class TestEditing(unittest.TestCase):
+
+    def test_edit_one_erased_word_of_same_size(self):
+        pencil = Pencil(pointDurability=50)
+        pencil.write("An apple a day keeps the doctor away")
+        pencil.erase("apple")
+        pencil.edit("onion")
+        self.assertEqual(pencil.writtenText, "An onion a day keeps the doctor away")
+        self.assertEqual(pencil.pointDurability, 15)
