@@ -17,7 +17,6 @@ class Pencil:
             else: 
                 break
             index += 1
-        return self.writtenText
 
     def canWrite(self, char):
         return self.pointDurability >= self.pointDurabilityCost(char)
@@ -25,7 +24,7 @@ class Pencil:
     def pointDurabilityCost(self, text):
         durabilityCost = 0
         for char in text:
-            if len(char.strip()) == 0:
+            if self.whiteSpaceCharacter(char):
                 pass
             elif char.islower():
                 durabilityCost += 1
@@ -36,6 +35,9 @@ class Pencil:
     def writeOneCharacter(self, char):
         self.writtenText += char
         self.degradePoint(char)
+
+    def read(self):
+        return self.writtenText
 
     def degradePoint(self, text):
         self.pointDurability -= self.pointDurabilityCost(text)
@@ -54,17 +56,17 @@ class Pencil:
     def erase(self, textToErase):
         lastIndex = self.writtenText.rfind(textToErase)
         if lastIndex != -1:
-            index = lastIndex + len(textToErase)
-            while index > lastIndex and self.canErase():
+            index = lastIndex + len(textToErase) - 1
+            while index >= lastIndex and self.canErase():
                 self.eraseOneCharacter(index)
                 index -= 1
-            self.addToErasedIndex(index)
+            self.addToErasedIndex(index+1)
 
     def canErase(self):
         return self.eraserDurability > 0
 
     def eraseOneCharacter(self, index):
-        self.writtenText = self.writtenText[:index-1] + " " + self.writtenText[index:]
+        self.changeOneCharacter(index, " ")
         self.degradeEraser()
 
     def degradeEraser(self):
@@ -75,19 +77,23 @@ class Pencil:
 
     def edit(self, text):
         index = self.erasedIndex.pop(0)
-        for num, character in enumerate(text):
-            self.changeOneCharacter(index + num, character)
+        for num, char in enumerate(text):
+            self.changeOneCharacter(index + num, char)
 
-    def changeOneCharacter(self, index, character):
-        if self.canWrite(character):
-            writtenCharacter = self.writtenCharacter(index)
-            if not self.whiteSpaceCharacter(writtenCharacter):
-                character = "@"
-            self.writtenText = self.writtenText[:index] + character + self.writtenText[index+1:]
-            self.degradePoint(character)
+    def changeOneCharacter(self, index, char):
+        if self.canWrite(char):
+            char = self.characterCollision(char, index)
+            self.writtenText = self.writtenText[:index] + char + self.writtenText[index+1:]
+            self.degradePoint(char)
 
-    def whiteSpaceCharacter(self, character):
-        return len(character.strip()) == 0
+    def whiteSpaceCharacter(self, char):
+        return len(char.strip()) == 0
 
-    def writtenCharacter(self, index):
+    def existingCharacter(self, index):
         return self.writtenText[index:index+1]
+
+    def characterCollision(self, char, index):
+        existingCharacter = self.existingCharacter(index)
+        if not self.whiteSpaceCharacter(char) and not self.whiteSpaceCharacter(existingCharacter):
+            char = "@"
+        return char
