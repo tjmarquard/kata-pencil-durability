@@ -100,3 +100,11 @@ class Pencil:
             and not self.white_space_character(existing_character)):
             char = "@"
         return char
+
+def input_point_durability():
+    point_durability = input("Enter the point durability: ")
+    return point_durability
+
+if __name__ == "__main__":
+
+    input_point_durability()

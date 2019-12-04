@@ -1,7 +1,8 @@
-# python -m unittest tests.test_Pencil
+# python -m unittest tests.test_pencil
 import unittest
+import unittest.mock
 
-from src.Pencil import Pencil
+from src.pencil import *
 
 class TestCreatePencil(unittest.TestCase):
 
@@ -148,3 +149,13 @@ class TestEditing(unittest.TestCase):
         self.pencil.edit("artichoke")
         self.assertEqual(self.pencil.read(), 
                          "An artich@k@ay keeps the doctor away")
+
+class TestInput(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def test_point_durability_input_20(self):
+        with unittest.mock.patch('builtins.input', return_value=20):
+            point_durability = input_point_durability()
+        self.assertEqual(point_durability, 20)
