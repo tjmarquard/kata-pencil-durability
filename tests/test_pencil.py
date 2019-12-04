@@ -153,15 +153,15 @@ class TestInput(unittest.TestCase):
 
     def setUp(self):
         pass
-
-    def test_point_durability_input_20(self):
-        with unittest.mock.patch('builtins.input', 
-                                 return_value=20):
-            point_durability = input_point_durability()
-        self.assertEqual(point_durability, 20)
     
-    def test_point_durability_input_blank(self):
-        with unittest.mock.patch('builtins.input',
-                                 return_value=" "):
-            point_durability = input_point_durability()
-        self.assertEqual(point_durability, "")
+    def test_attribute_input(self):
+        with unittest.mock.patch('builtins.input', return_value=200):
+            eraser_durability = attribute_input("test: ")
+        self.assertEqual(eraser_durability, 200)
+
+    def test_use_default_value_integer(self):
+        self.assertEqual(use_default_value(100), 100)
+    
+    def test_use_default_value_not_integer(self):
+        self.assertEqual(use_default_value("not integer"), "")
+

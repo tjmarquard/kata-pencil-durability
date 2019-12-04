@@ -102,11 +102,23 @@ class Pencil:
         return char
 
 def input_point_durability():
-    point_durability = input("Enter the point durability: ")
-    if not isinstance(point_durability, int):
-        point_durability = ""
-    return point_durability
+    prompt = "Enter the point durability as an integer: "
+    return attribute_input(prompt)
+
+def input_eraser_durability():
+    prompt = "Enter the eraser durability as an integer: "
+    return attribute_input(prompt)
+
+def attribute_input(prompt):
+    user_input = input(prompt)
+    return use_default_value(user_input)
+
+def use_default_value(input_value):
+    if not isinstance(input_value, int):
+        input_value = ""
+    return input_value
 
 if __name__ == "__main__":
 
     input_point_durability()
+    input_eraser_durability()
