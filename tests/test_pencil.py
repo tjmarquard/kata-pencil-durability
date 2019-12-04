@@ -1,4 +1,3 @@
-# python -m unittest tests.test_pencil
 import unittest
 import unittest.mock
 
@@ -156,6 +155,13 @@ class TestInput(unittest.TestCase):
         pass
 
     def test_point_durability_input_20(self):
-        with unittest.mock.patch('builtins.input', return_value=20):
+        with unittest.mock.patch('builtins.input', 
+                                 return_value=20):
             point_durability = input_point_durability()
         self.assertEqual(point_durability, 20)
+    
+    def test_point_durability_input_blank(self):
+        with unittest.mock.patch('builtins.input',
+                                 return_value=" "):
+            point_durability = input_point_durability()
+        self.assertEqual(point_durability, "")

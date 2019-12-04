@@ -103,6 +103,8 @@ class Pencil:
 
 def input_point_durability():
     point_durability = input("Enter the point durability: ")
+    if not isinstance(point_durability, int):
+        point_durability = ""
     return point_durability
 
 if __name__ == "__main__":
