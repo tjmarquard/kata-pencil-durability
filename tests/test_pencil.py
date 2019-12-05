@@ -155,13 +155,16 @@ class TestInput(unittest.TestCase):
         pass
     
     def test_attribute_input(self):
-        with unittest.mock.patch('builtins.input', return_value=200):
+        with unittest.mock.patch('builtins.input', return_value="200"):
             eraser_durability = attribute_input("test: ")
         self.assertEqual(eraser_durability, 200)
 
-    def test_use_default_value_integer(self):
-        self.assertEqual(use_default_value(100), 100)
+    def test_validate_input_integer(self):
+        self.assertEqual(validate_input("100"), 100)
+        self.assertIsInstance(validate_input("100"), int)
     
-    def test_use_default_value_not_integer(self):
-        self.assertEqual(use_default_value("not integer"), "")
+    def test_validate_input_not_integer(self):
+        self.assertEqual(validate_input("not integer"), "")
 
+    def test_validate_input_decimal(self):
+        self.assertEqual(validate_input("10.0"), "")
