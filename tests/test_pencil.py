@@ -144,27 +144,20 @@ class TestEditing(unittest.TestCase):
                          "An onion a day keeps the doctor away")
         self.assertEqual(self.pencil.point_durability, 15)
 
+    def test_edit_two_words_when_only_one_erased(self):
+        self.pencil.edit("onion")
+        self.pencil.edit("peach")
+        self.assertEqual(self.pencil.read(), 
+                         "An onion a day keeps the doctor away")
+        self.assertEqual(self.pencil.point_durability, 15)
+
     def test_edit_one_erased_word_of_larger_size(self):
         self.pencil.edit("artichoke")
         self.assertEqual(self.pencil.read(), 
                          "An artich@k@ay keeps the doctor away")
 
-class TestInput(unittest.TestCase):
-
-    def setUp(self):
-        pass
-    
-    def test_attribute_input(self):
-        with unittest.mock.patch('builtins.input', return_value="200"):
-            eraser_durability = attribute_input("test: ")
-        self.assertEqual(eraser_durability, 200)
-
-    def test_validate_input_integer(self):
-        self.assertEqual(validate_input("100"), 100)
-        self.assertIsInstance(validate_input("100"), int)
-    
-    def test_validate_input_not_integer(self):
-        self.assertEqual(validate_input("not integer"), "")
-
-    def test_validate_input_decimal(self):
-        self.assertEqual(validate_input("10.0"), "")
+class TestBuildPencil(unittest.TestCase):
+        
+    def test_build_pencil(self):
+        pencil = build_pencil()
+        self.assertEqual(pencil.point_durability, 20)

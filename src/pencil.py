@@ -76,9 +76,10 @@ class Pencil:
         self.erased_index.append(index)
 
     def edit(self, text):
-        index = self.erased_index.pop(0)
-        for num, char in enumerate(text):
-            self.change_one_character(index + num, char)
+        if len(self.erased_index) > 0:
+            index = self.erased_index.pop(0)
+            for num, char in enumerate(text):
+                self.change_one_character(index + num, char)
 
     def change_one_character(self, index, char):
         if self.can_write(char):
@@ -101,49 +102,9 @@ class Pencil:
             char = "@"
         return char
 
-def input_point_durability():
-    prompt = "Enter the point durability as an integer: "
-    return attribute_input(prompt)
-
-def input_eraser_durability():
-    prompt = "Enter the eraser durability as an integer: "
-    return attribute_input(prompt)
-
-def input_length():
-    prompt = "Enter the pencil length as an integer: "
-    return attribute_input(prompt)
-
-def attribute_input(prompt):
-    user_input = input(prompt)
-    return validate_input(user_input)
-
-def validate_input(input_value):
-    if is_positive_integer(input_value):
-        input_value = int(input_value)
-    else:
-        input_value = ""
-    return input_value
-
-def is_positive_integer(value):
-    return value.isdigit()
-
 def build_pencil():
-    args = build_pencil_args()
-    pencil = Pencil(**args)
-    return pencil    
-
-def build_pencil_args():
-    point_durability = input_point_durability()
-    length = input_length()
-    eraser_durability = input_eraser_durability()
-    args = {}
-    if not point_durability == "":
-        args['point_durability'] = point_durability
-    if not length == "":
-        args["length"] = length
-    if not eraser_durability == "":
-        args["eraser_durability"] = eraser_durability
-    return args
+    pencil = Pencil()
+    return pencil
 
 if __name__ == "__main__":
     pencil = build_pencil()
