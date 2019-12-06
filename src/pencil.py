@@ -103,8 +103,19 @@ class Pencil:
         return char
 
 def build_pencil():
-    pencil = Pencil()
+    point_durability = input_point_durability()
+    eraser_durability = input_eraser_durability()
+    pencil = Pencil(point_durability=point_durability,
+                    eraser_durability=eraser_durability)
     return pencil
+
+def input_point_durability():
+    user_input = int(input("Enter the point durability as an integer: "))
+    return user_input
+
+def input_eraser_durability():
+    user_input = int(input("Enter the eraser durability as an integer: "))
+    return user_input
 
 if __name__ == "__main__":
     pencil = build_pencil()

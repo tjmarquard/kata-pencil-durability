@@ -1,5 +1,5 @@
 import unittest
-import unittest.mock
+from unittest.mock import patch
 
 from src.pencil import *
 
@@ -157,7 +157,21 @@ class TestEditing(unittest.TestCase):
                          "An artich@k@ay keeps the doctor away")
 
 class TestBuildPencil(unittest.TestCase):
-        
-    def test_build_pencil(self):
+  
+    @patch('src.pencil.input_eraser_durability')
+    @patch('src.pencil.input_point_durability')
+    def test_build_pencil(self,
+                          mock_point_durability,
+                          mock_eraser_durability):
+        mock_point_durability.return_value = 100
+        mock_eraser_durability.return_value = 200
         pencil = build_pencil()
-        self.assertEqual(pencil.point_durability, 20)
+        self.assertEqual(pencil.point_durability, 100)
+        self.assertEqual(pencil.eraser_durability, 200)
+
+    @patch('builtins.input')
+    def test_point_durability_input(self, mock_input):
+        mock_input.return_value = "200"
+        point_durability = input_point_durability()
+        self.assertEqual(point_durability, 200)
+        self.assertIsInstance(point_durability, int)
