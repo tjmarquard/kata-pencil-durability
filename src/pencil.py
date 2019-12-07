@@ -104,23 +104,28 @@ class Pencil:
 
 def build_pencil():
     point_durability = input_point_durability()
-    eraser_durability = input_eraser_durability()
     length = input_length()
-    pencil = Pencil(point_durability=point_durability,
-                    eraser_durability=eraser_durability,
-                    length=length)
+    eraser_durability = input_eraser_durability()
+    args = {}
+    if not point_durability == "":
+        args['point_durability'] = point_durability
+    if not length == "":
+        args["length"] = length
+    if not eraser_durability == "":
+        args["eraser_durability"] = eraser_durability
+    pencil = Pencil(**args)
     return pencil
 
 def input_point_durability():
     prompt = "Enter the point durability as an integer: "
     return input_attribute(prompt)
 
-def input_eraser_durability():
-    prompt = "Enter the eraser durability as an integer: "
-    return input_attribute(prompt)
-
 def input_length():
     prompt = "Enter the length of the pencil as an integer: "
+    return input_attribute(prompt)
+
+def input_eraser_durability():
+    prompt = "Enter the eraser durability as an integer: "
     return input_attribute(prompt)
 
 def input_attribute(prompt):

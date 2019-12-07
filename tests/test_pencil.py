@@ -158,20 +158,35 @@ class TestEditing(unittest.TestCase):
 
 class TestBuildPencil(unittest.TestCase):
   
-    @patch('src.pencil.input_length')
     @patch('src.pencil.input_eraser_durability')
+    @patch('src.pencil.input_length')
     @patch('src.pencil.input_point_durability')
     def test_build_pencil(self,
                           mock_point_durability,
-                          mock_eraser_durability,
-                          mock_length):
+                          mock_length,
+                          mock_eraser_durability):
         mock_point_durability.return_value = 100
-        mock_eraser_durability.return_value = 200
         mock_length.return_value = 300
+        mock_eraser_durability.return_value = 200
         pencil = build_pencil()
         self.assertEqual(pencil.point_durability, 100)
-        self.assertEqual(pencil.eraser_durability, 200)
         self.assertEqual(pencil.length, 300)
+        self.assertEqual(pencil.eraser_durability, 200)
+    
+    @patch('src.pencil.input_eraser_durability')
+    @patch('src.pencil.input_length')
+    @patch('src.pencil.input_point_durability')
+    def test_build_pencil_defaults(self,
+                          mock_point_durability,
+                          mock_length,
+                          mock_eraser_durability):
+        mock_point_durability.return_value = ""
+        mock_length.return_value = ""
+        mock_eraser_durability.return_value = ""
+        pencil = build_pencil()
+        self.assertEqual(pencil.point_durability, 20)
+        self.assertEqual(pencil.length, 10)
+        self.assertEqual(pencil.eraser_durability, 10)
 
     @patch('builtins.input')
     def test_point_durability_input(self, mock_input):
