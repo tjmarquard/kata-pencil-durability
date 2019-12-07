@@ -151,6 +151,7 @@ def use_pencil(pencil):
         print("3. Erase")
         print("4. Sharpen")
         print("5. Edit")
+        print("6. View Stats")
         print("7. Quit")
         user_input = input("Which option: ")
         if user_input == "1":
@@ -163,6 +164,8 @@ def use_pencil(pencil):
             pencil.sharpen()
         elif user_input == "5":
             edit_text(pencil)
+        elif user_input == "6":
+            view_stats(pencil)
 
 def view_text(pencil):
     print("The current text is:")
@@ -179,6 +182,11 @@ def erase_text(pencil):
 def edit_text(pencil):
     text = input("Enter new text: ")
     pencil.edit(text)
+
+def view_stats(pencil):
+    print("Point durability: " + str(pencil.point_durability))
+    print("Length: " + str(pencil.length))
+    print("Eraser durability: " + str(pencil.eraser_durability))
 
 if __name__ == "__main__":
     pencil = build_pencil()
