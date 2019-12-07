@@ -145,9 +145,10 @@ def massage_input(value):
 
 def use_pencil(pencil):
     user_input = ""
-    while not user_input == "2":
+    while not user_input == "3":
         print("1. Read")
-        print("2. Quit")
+        print("2. Write")
+        print("3. Quit")
         user_input = input("Which option: ")
         if user_input == "1":
             view_text(pencil)
