@@ -252,3 +252,14 @@ class TestUsePencil(unittest.TestCase):
         erase_text(pencil)
         self.assertEqual(pencil.read(), 
                          "An       a day keeps the doctor away")
+
+    @patch('builtins.input')
+    def test_edit_text(self, mock_input):
+        mock_input.return_value = "onion"
+        text = "An apple a day keeps the doctor away"
+        expected_text = "An onion a day keeps the doctor away"
+        pencil = Pencil(point_durability=50)
+        pencil.write(text)
+        pencil.erase("apple")
+        edit_text(pencil)
+        self.assertEqual(pencil.read(), expected_text)

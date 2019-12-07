@@ -145,11 +145,13 @@ def massage_input(value):
 
 def use_pencil(pencil):
     user_input = ""
-    while not user_input == "4":
+    while not user_input == "7":
         print("1. Read")
         print("2. Write")
         print("3. Erase")
-        print("4. Quit")
+        print("4. Sharpen")
+        print("5. Edit")
+        print("7. Quit")
         user_input = input("Which option: ")
         if user_input == "1":
             view_text(pencil)
@@ -157,6 +159,10 @@ def use_pencil(pencil):
             write_text(pencil)
         elif user_input == "3":
             erase_text(pencil)
+        elif user_input == "4":
+            pencil.sharpen()
+        elif user_input == "5":
+            edit_text(pencil)
 
 def view_text(pencil):
     print("The current text is:")
@@ -169,6 +175,10 @@ def write_text(pencil):
 def erase_text(pencil):
     text = input("Enter text to erase: ")
     pencil.erase(text)
+
+def edit_text(pencil):
+    text = input("Enter new text: ")
+    pencil.edit(text)
 
 if __name__ == "__main__":
     pencil = build_pencil()
