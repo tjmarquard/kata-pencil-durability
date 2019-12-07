@@ -124,8 +124,11 @@ def input_length():
     return input_attribute(prompt)
 
 def input_attribute(prompt):
-    user_input = int(input(prompt))
-    return user_input
+    value = input(prompt)
+    return massage_input(value)
+
+def massage_input(value):
+    return int(value)
 
 if __name__ == "__main__":
     pencil = build_pencil()

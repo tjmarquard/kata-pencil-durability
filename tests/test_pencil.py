@@ -199,3 +199,8 @@ class TestBuildPencil(unittest.TestCase):
         expected_value.return_value = "200"
         attribute_value = input_attribute("prompt text")
         self.assertEqual(attribute_value, 200)
+
+    def test_massage_input(self):
+        massaged_value = massage_input("200")
+        self.assertEqual(massaged_value, 200)
+        self.assertIsInstance(massaged_value, int)
