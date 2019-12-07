@@ -128,7 +128,11 @@ def input_attribute(prompt):
     return massage_input(value)
 
 def massage_input(value):
-    return int(value)
+    if value.isdigit():
+        value = int(value)
+    else:
+        value = ""
+    return value
 
 if __name__ == "__main__":
     pencil = build_pencil()

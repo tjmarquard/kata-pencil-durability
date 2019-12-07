@@ -204,3 +204,8 @@ class TestBuildPencil(unittest.TestCase):
         massaged_value = massage_input("200")
         self.assertEqual(massaged_value, 200)
         self.assertIsInstance(massaged_value, int)
+    
+    def test_massage_input_blank(self):
+        massaged_value = massage_input("")
+        self.assertEqual(massaged_value, "")
+        self.assertIsInstance(massaged_value, str)
