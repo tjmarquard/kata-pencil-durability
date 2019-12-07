@@ -103,18 +103,22 @@ class Pencil:
         return char
 
 def build_pencil():
+    args = build_pencil_args()
+    pencil = Pencil(**args)
+    return pencil
+
+def build_pencil_args():
+    args = {}
     point_durability = input_point_durability()
     length = input_length()
     eraser_durability = input_eraser_durability()
-    args = {}
     if not point_durability == "":
         args['point_durability'] = point_durability
     if not length == "":
         args["length"] = length
     if not eraser_durability == "":
         args["eraser_durability"] = eraser_durability
-    pencil = Pencil(**args)
-    return pencil
+    return args
 
 def input_point_durability():
     prompt = "Enter the point durability as an integer: "
