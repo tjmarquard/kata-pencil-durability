@@ -143,5 +143,25 @@ def massage_input(value):
         value = ""
     return value
 
+def use_pencil(pencil):
+    user_input = ""
+    while not user_input == "2":
+        print("1. Read")
+        print("2. Quit")
+        user_input = input("Which option: ")
+        if user_input == "1":
+            view_text(pencil)
+        elif user_input == "2":
+            write_text(pencil)
+
+def view_text(pencil):
+    print("The current text is:")
+    print(pencil.read())
+
+def write_text(pencil):
+    text = input("Enter text to write: ")
+    pencil.write(text)
+
 if __name__ == "__main__":
     pencil = build_pencil()
+    use_pencil(pencil)

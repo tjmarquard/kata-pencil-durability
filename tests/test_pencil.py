@@ -229,3 +229,13 @@ class TestBuildPencil(unittest.TestCase):
         massaged_value = massage_input("-50")
         self.assertEqual(massaged_value, "")
         self.assertIsInstance(massaged_value, str)
+
+class TestUsePencil(unittest.TestCase):
+
+    @patch('builtins.input')
+    def test_write_text(self, mock_input):
+        text = "An apple a day keeps the doctor away"
+        mock_input.return_value = text
+        pencil = Pencil(point_durability=50)
+        write_text(pencil)
+        self.assertEqual(pencil.read(), text)
