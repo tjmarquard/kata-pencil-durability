@@ -110,11 +110,15 @@ def build_pencil():
     return pencil
 
 def input_point_durability():
-    user_input = int(input("Enter the point durability as an integer: "))
-    return user_input
+    prompt = "Enter the point durability as an integer: "
+    return input_attribute(prompt)
 
 def input_eraser_durability():
-    user_input = int(input("Enter the eraser durability as an integer: "))
+    prompt = "Enter the eraser durability as an integer: "
+    return input_attribute(prompt)
+
+def input_attribute(prompt):
+    user_input = int(input(prompt))
     return user_input
 
 if __name__ == "__main__":

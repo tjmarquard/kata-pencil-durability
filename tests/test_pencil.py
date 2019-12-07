@@ -175,3 +175,9 @@ class TestBuildPencil(unittest.TestCase):
         point_durability = input_point_durability()
         self.assertEqual(point_durability, 200)
         self.assertIsInstance(point_durability, int)
+
+    @patch('builtins.input')
+    def test_attribute_input(self, expected_value):
+        expected_value.return_value = "200"
+        attribute_value = input_attribute("prompt text")
+        self.assertEqual(attribute_value, 200)
